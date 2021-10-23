@@ -5,7 +5,9 @@ x-environment: &common-variables
   ACCEPT_EULA: "Y"
   MSSQL_AGENT_ENABLED: "True"
   INIT_WAIT: 45
-  INSTALL_SQLCARE: "False"
+  INSTALL_DACPAC: "False"
+  DACPAC_DATABASE_NAME: "YourDatabase"
+  DACPAC_FILENAME: "YourFile.dacpac"
   ESTABLISH_MIRRORS: "False"
   ESTABLISH_AG: "False"
   ESTABLISH_LOG_SHIPPING: "False"
@@ -16,14 +18,8 @@ x-environment: &common-variables
   #NUM_OF_AG_DATABASES: 1
   #LOG_SHIPPING_DATABASE_NAME: "LogShippingDB"
   #NUM_OF_LOG_SHIPPING_DATABASES: 1
-  ###
-  # ENABLE ONE OF THESE COLLATIONS, DEFAULT IS SQL_Latin1_General_CP1_CI_AI
-  ###
-  #MSSQL_COLLATION: "Latin1_General_BIN"
   #MSSQL_COLLATION: "SQL_Latin1_General_CP1_CI_AI"
-  #MSSQL_COLLATION: "SQL_Latin1_General_CP1_CI_AS"
-  #MSSQL_COLLATION: "SQL_Latin1_General_CP1_CS_AS"
-
+  
 services:
 
   sqlserver1:
