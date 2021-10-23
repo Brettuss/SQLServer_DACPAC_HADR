@@ -10,7 +10,7 @@ fi
 
 #Check environment variables
 
-if [ ! "$INSTALL_SQLCARE" ]
+if [ ! "$INSTALL_DACPAC" ]
 then
     INSTALL_SQLCARE="False"
 fi
@@ -90,11 +90,11 @@ then
     echo "LOG_SHIPPING_DATABASE_NAME = $LOG_SHIPPING_DATABASE_NAME"
 fi
 
-#Check to see if we need to install SQLCARE.
+#Check to see if we need to install the DACPAC.
 
-if [[ $INSTALL_SQLCARE == "True" ]]
+if [[ $INSTALL_DACPAC == "True" ]]
 then
-    /bin/bash /tmp/install_sqlcare.sh
+    /bin/bash /tmp/install_dacpac.sh
 fi
 
 #Check to see if we're establishing mirrors.
