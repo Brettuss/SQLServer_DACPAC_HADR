@@ -1,0 +1,61 @@
+version: "3.9"
+
+x-environment: &common-variables
+  SA_PASSWORD: "!<YourPassword>!"
+  ACCEPT_EULA: "Y"
+  MSSQL_AGENT_ENABLED: "True"
+  INIT_WAIT: 45
+  INSTALL_SQLCARE: "False"
+  ESTABLISH_MIRRORS: "False"
+  ESTABLISH_AG: "False"
+  ESTABLISH_LOG_SHIPPING: "False"
+  MSSQL_ENABLE_HADR: 1
+  #MIRROR_DATABASE_NAME: "MirrorDB"
+  #NUM_OF_MIRROR_DATABASES: 1
+  #AG_DATABASE_NAME: "AGDB"
+  #NUM_OF_AG_DATABASES: 1
+  #LOG_SHIPPING_DATABASE_NAME: "LogShippingDB"
+  #NUM_OF_LOG_SHIPPING_DATABASES: 1
+  ###
+  # ENABLE ONE OF THESE COLLATIONS, DEFAULT IS SQL_Latin1_General_CP1_CI_AI
+  ###
+  #MSSQL_COLLATION: "Latin1_General_BIN"
+  #MSSQL_COLLATION: "SQL_Latin1_General_CP1_CI_AI"
+  #MSSQL_COLLATION: "SQL_Latin1_General_CP1_CI_AS"
+  #MSSQL_COLLATION: "SQL_Latin1_General_CP1_CS_AS"
+
+services:
+
+  sqlserver1:
+    build: ./sql
+    environment:
+      <<: *common-variables
+      COMMON_SCRIPT: "common_sqlserver1.sh"
+    ports:
+      - "1433:1433"
+    container_name: sqlserver1
+    hostname: sqlserver1
+    networks:
+      - sqlserver
+    volumes:
+      - sql_files:/sql_files
+
+  sqlserver2:
+    build: ./sql
+    environment:
+      <<: *common-variables
+      COMMON_SCRIPT: "common_sqlserver2.sh"
+    ports:
+      - "1434:1433"
+    container_name: sqlserver2
+    hostname: sqlserver2
+    networks:
+      - sqlserver
+    volumes:
+      - sql_files:/sql_files
+
+networks:
+  sqlserver:
+
+volumes:
+  sql_files:
