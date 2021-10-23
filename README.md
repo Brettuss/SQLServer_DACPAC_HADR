@@ -12,7 +12,9 @@ The following environment variables are available for use.  You will find them i
 |Variable Name  |Type  |Default Value  |Description  |
 |---------|---------|---------|---------|
 |`INIT_WAIT`     | Integer         | 45         | Number of seconds the containers will wait before deploying the db-init.sh file.  Increase this number if the configuration scripts start running before the instance is ready.         |
-|`INSTALL_SQLCARE`     | Boolean         | False         | If `True`, the SQLCARE DACPAC will be installed.         |
+|`INSTALL_DACPAC`     | Boolean         | False         | `True`: The DACPAC will be installed. <br><br> `False`: The DACPAC will not be installed.         |
+|`DACPAC_DATABASE_NAME`| String | YourDatabase | The name of the database used when DACPAC is installed. |
+|`DACPAC_FILENAME` | String | YourFile.dacpac | The DACPAC file name.  This file must be placed in the `/sql/dacpac/` folder. |
 |`ESTABLISH_MIRRORS`     | Boolean         | False         | `True`: A mirror session will be established between `sqlserver1` and `sqlserver2` for database `MIRROR_DATABASE_NAME`. <br><br> `False`: A mirror session will not be established.        |
 |`ESTABLISH_AG`     | Boolean         | False         | `True`: An availability group `AG1` will be created for database `AG_DATABASE_NAME`. <br><br> `False`: An availability group will not be created.         |
 |`ESTABLISH_LOG_SHIPPING`     | Boolean        | False         | `True`: Log shipping will be established for database `LOG_SHIPPING_DATABASE_NAME` <br><br> `False`: Log shipping will not be established.        |
