@@ -12,7 +12,7 @@ fi
 
 if [ ! "$INSTALL_DACPAC" ]
 then
-    INSTALL_SQLCARE="False"
+    INSTALL_DACPAC="False"
 fi
 
 if [ ! "$ESTABLISH_MIRROR" ]
