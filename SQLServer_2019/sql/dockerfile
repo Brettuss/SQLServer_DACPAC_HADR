@@ -1,0 +1,36 @@
+FROM mcr.microsoft.com/mssql/server:2019-latest
+
+# Elevate User
+USER root
+# Install Unzip
+RUN apt-get update \
+    && apt-get install unzip libunwind8 libicu66 -y
+	
+RUN wget --quiet http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb
+RUN dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb
+
+# Install SQLPackage for Linux and make it executable
+RUN wget -progress=bar:force -q -O sqlpackage.zip https://aka.ms/sqlpackage-linux \
+    && unzip -qq sqlpackage.zip -d /opt/sqlpackage \
+    && chmod a+x /opt/sqlpackage/sqlpackage \
+    && chown -R mssql /opt/sqlpackage \
+    && chown -R mssql /tmp/
+
+RUN mkdir /sql_files
+RUN mkdir /sql_files/ls_backups
+RUN mkdir /sql_files/ls_copies
+RUN chmod 777 -R /sql_files
+
+RUN /opt/mssql/bin/mssql-conf set sqlagent.enabled true
+RUN /opt/mssql/bin/mssql-conf set hadr.hadrenabled  1
+RUN /opt/mssql/bin/mssql-conf set memory.memorylimitmb 2048
+
+# Lower User
+USER mssql
+
+# Add the DACPAC to the image
+COPY . /tmp/
+
+# Launch SQL Server, confirm startup is complete, deploy the DACPAC, then terminate SQL Server.
+# See https://stackoverflow.com/a/51589787/488695
+CMD /bin/bash /tmp/entrypoint.sh

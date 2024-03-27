@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/mssql/server:2019-latest
+FROM mcr.microsoft.com/mssql/server:2022-latest
 
 # Elevate User
 USER root
@@ -6,13 +6,13 @@ USER root
 RUN apt-get update \
     && apt-get install unzip libunwind8 libicu66 -y
 	
-RUN wget --quiet https://repo.ialab.dsu.edu/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.7_amd64.deb
-RUN dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.7_amd64.deb
+RUN wget --quiet http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb
+RUN dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb
 
 # Install SQLPackage for Linux and make it executable
-RUN wget -progress=bar:force -q -O sqlpackage.zip https://go.microsoft.com/fwlink/?linkid=2113331 \
+RUN wget -progress=bar:force -q -O sqlpackage.zip https://aka.ms/sqlpackage-linux \
     && unzip -qq sqlpackage.zip -d /opt/sqlpackage \
-    && chmod +x /opt/sqlpackage/sqlpackage \
+    && chmod a+x /opt/sqlpackage/sqlpackage \
     && chown -R mssql /opt/sqlpackage \
     && chown -R mssql /tmp/
 
