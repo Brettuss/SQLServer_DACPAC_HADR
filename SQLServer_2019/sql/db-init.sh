@@ -49,7 +49,7 @@ echo "sleeping for ${SLEEP_TIME} seconds ..."
 sleep ${SLEEP_TIME}
 
 #Clear out the volume in case it wasn't done with last docker compose down
-rm /sql_files/*
+rm -rf /sql_files/*
 
 #Execute Common Script
 #This script creates logins and certs needed
