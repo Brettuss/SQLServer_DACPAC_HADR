@@ -7,6 +7,6 @@ done
 echo "AG set on primary, waiting 10 seconds to join secondary replicas."
 sleep 10
 
- /opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD -d master -q "ALTER AVAILABILITY GROUP [AG1] JOIN WITH (CLUSTER_TYPE = NONE)"
+ /opt/mssql-tools18/bin/sqlcmd -C -U sa -P $SA_PASSWORD -d master -q "ALTER AVAILABILITY GROUP [AG1] JOIN WITH (CLUSTER_TYPE = NONE)"
 
- /opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD -d master -q "ALTER AVAILABILITY GROUP [AG1] GRANT CREATE ANY DATABASE"
+ /opt/mssql-tools18/bin/sqlcmd -C -U sa -P $SA_PASSWORD -d master -q "ALTER AVAILABILITY GROUP [AG1] GRANT CREATE ANY DATABASE"

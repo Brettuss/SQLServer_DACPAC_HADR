@@ -6,9 +6,9 @@ do
 		i=
 	fi
 
-	/opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD -q "CREATE DATABASE [$LOG_SHIPPING_DATABASE_NAME$i]"
-	/opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD -d $LOG_SHIPPING_DATABASE_NAME$i -Q "BACKUP DATABASE [$LOG_SHIPPING_DATABASE_NAME$i] TO DISK = '/sql_files/ls_backups/$LOG_SHIPPING_DATABASE_NAME$i.bak'"
-	/opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD -d $LOG_SHIPPING_DATABASE_NAME$i -Q "BACKUP LOG [$LOG_SHIPPING_DATABASE_NAME$i] TO DISK = '/sql_files/ls_backups/$LOG_SHIPPING_DATABASE_NAME$i.trn'"
+	/opt/mssql-tools18/bin/sqlcmd -C -U sa -P $SA_PASSWORD -q "CREATE DATABASE [$LOG_SHIPPING_DATABASE_NAME$i]"
+	/opt/mssql-tools18/bin/sqlcmd -C -U sa -P $SA_PASSWORD -d $LOG_SHIPPING_DATABASE_NAME$i -Q "BACKUP DATABASE [$LOG_SHIPPING_DATABASE_NAME$i] TO DISK = '/sql_files/ls_backups/$LOG_SHIPPING_DATABASE_NAME$i.bak'"
+	/opt/mssql-tools18/bin/sqlcmd -C -U sa -P $SA_PASSWORD -d $LOG_SHIPPING_DATABASE_NAME$i -Q "BACKUP LOG [$LOG_SHIPPING_DATABASE_NAME$i] TO DISK = '/sql_files/ls_backups/$LOG_SHIPPING_DATABASE_NAME$i.trn'"
 	if [ $NUM_OF_LOG_SHIPPING_DATABASES -eq 1 ] 
 	then
 		i=1
@@ -28,7 +28,7 @@ do
 	fi
 	echo "Begin - PRIMARY - Setting up Log Shipping for database $LOG_SHIPPING_DATABASE_NAME$i"
 
-	/opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD -d $LOG_SHIPPING_DATABASE_NAME$i -Q "DECLARE @LS_BackupJobId AS uniqueidentifier 
+	/opt/mssql-tools18/bin/sqlcmd -C -U sa -P $SA_PASSWORD -d $LOG_SHIPPING_DATABASE_NAME$i -Q "DECLARE @LS_BackupJobId AS uniqueidentifier 
 	DECLARE @LS_PrimaryId	AS uniqueidentifier 
 	DECLARE @SP_Add_RetCode	As int 
 

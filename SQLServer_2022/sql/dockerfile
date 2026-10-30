@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/mssql/server:2022-latest
 USER root
 # Install Unzip
 RUN apt-get update \
-    && apt-get install unzip libunwind8 libicu66 -y
+    && apt-get install unzip libunwind8 -y
 	
 RUN wget --quiet http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb
 RUN dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb

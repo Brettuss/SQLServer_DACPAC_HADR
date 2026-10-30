@@ -12,8 +12,8 @@ do
 		i=
 	fi
 
-	/opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD -d master -q "RESTORE DATABASE [$LOG_SHIPPING_DATABASE_NAME$i] FROM DISK = N'/sql_files/ls_backups/$LOG_SHIPPING_DATABASE_NAME$i.bak' WITH NORECOVERY"
-	/opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD -d master -q "RESTORE LOG [$LOG_SHIPPING_DATABASE_NAME$i] FROM DISK = N'/sql_files/ls_backups/$LOG_SHIPPING_DATABASE_NAME$i.trn' WITH NORECOVERY"
+	/opt/mssql-tools18/bin/sqlcmd -C -U sa -P $SA_PASSWORD -d master -q "RESTORE DATABASE [$LOG_SHIPPING_DATABASE_NAME$i] FROM DISK = N'/sql_files/ls_backups/$LOG_SHIPPING_DATABASE_NAME$i.bak' WITH NORECOVERY"
+	/opt/mssql-tools18/bin/sqlcmd -C -U sa -P $SA_PASSWORD -d master -q "RESTORE LOG [$LOG_SHIPPING_DATABASE_NAME$i] FROM DISK = N'/sql_files/ls_backups/$LOG_SHIPPING_DATABASE_NAME$i.trn' WITH NORECOVERY"
 
 	if [ $NUM_OF_LOG_SHIPPING_DATABASES -eq 1 ] 
 	then
@@ -41,7 +41,7 @@ do
 
 	echo "Begin - SECONDARY - Setting up Log Shipping for $LOG_SHIPPING_DATABASE_NAME$i"
 	
-	/opt/mssql-tools/bin/sqlcmd -U sa -P $SA_PASSWORD -d master -q "DECLARE @LS_Secondary__CopyJobId	AS uniqueidentifier 
+	/opt/mssql-tools18/bin/sqlcmd -C -U sa -P $SA_PASSWORD -d master -q "DECLARE @LS_Secondary__CopyJobId	AS uniqueidentifier 
 	DECLARE @LS_Secondary__RestoreJobId	AS uniqueidentifier 
 	DECLARE @LS_Secondary__SecondaryId	AS uniqueidentifier 
 	DECLARE @LS_Add_RetCode	As int 
